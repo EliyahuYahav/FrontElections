@@ -6,6 +6,7 @@ import { login } from "../../store/Users/LoginUser";
 import { Users } from "../../types/typeUser";
 import './Login.css';
 
+
 const Login: FC = () => {
     
   const navigate = useNavigate();
@@ -23,7 +24,9 @@ const Login: FC = () => {
             username: userName,
             password:password
         }
-        if(userLogin) dispatch(login(userLogin));
+        if(userLogin) {
+          dispatch(login(userLogin))
+        }
       }
   };
 
@@ -32,9 +35,7 @@ const Login: FC = () => {
       navigate("/"); 
     } else if (status === "fulfilled") {
       const token = localStorage.getItem("token");
-      console.log(token)
       if (token) {
-        console.log(userName)
         navigate("/listCandidates", { state: { userName } });
       } else {
         console.log("No token found");

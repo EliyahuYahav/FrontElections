@@ -17,7 +17,7 @@ interface CandidateState {
 
   export const AddVotesCandidates = createAsyncThunk(
     "Candidate/AddVote",
-    async ({userId, candidatesId}:{userId:string, candidatesId: string}): Promise<Users | undefined> => {
+    async ({userId, candidatesId}:{userId:string | undefined, candidatesId: string | undefined}): Promise<Users | undefined> => {
       const response = await axios.put(`${VITE_BASE_URL_ADD_VOTE}${userId}/${candidatesId}`);
       return response.data;
     }
@@ -35,7 +35,7 @@ export const CandidatesSlice = createSlice({
       })
       .addCase(AddVotesCandidates.fulfilled, (state) => {
           state.status = "fulfilled";
-          return state;
+          state.error = null
         })
         .addCase(AddVotesCandidates.rejected, (state) => {
           state.error = "Cannot fetch Posts";
